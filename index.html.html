@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar System Explorer 🚀</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: linear-gradient(135deg, #05051c, #111c4e, #30145b);
+}
+
+#coverPage {
+  min-height: 100vh;
+  padding: 35px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 15% 20%, #5140a8, transparent 30%),
+    radial-gradient(circle at 85% 75%, #174c91, transparent 30%),
+    linear-gradient(135deg, #05051c, #111c4e, #30145b);
+}
+
+.stars {
+  position: absolute;
+  top: 15px;
+  width: 100%;
+  color: #ffe58a;
+  font-size: 24px;
+  letter-spacing: 8px;
+  animation: twinkle 2s infinite alternate;
+}
+
+.cover-content { max-width: 850px; width: 100%; }
+
+.badge {
+  display: inline-block;
+  background: #25265d;
+  color: #7cecff;
+  border: 1px solid #7cecff;
+  border-radius: 30px;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+#coverPage h1 {
+  font-size: clamp(38px, 8vw, 76px);
+  line-height: 1.1;
+  color: white;
+  text-shadow: 0 0 25px #7c62ff;
+  margin: 25px 0;
+}
+
+#coverPage h1 span {
+  display: block;
+  color: #7cecff;
+}
+
+.subtitle { color: #ffd77a; font-size: 20px; }
+
+.planet-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 30px 0;
+}
+
+.space-planet {
+  font-size: 34px;
+  animation: floatPlanet 3s ease-in-out infinite;
+}
+
+.space-planet:nth-child(even) { animation-delay: .5s; }
+
+.description {
+  max-width: 650px;
+  margin: auto;
+  line-height: 1.9;
+  color: #e1e7ff;
+}
+
+.cover-features {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.cover-features span {
+  background: #202958;
+  border: 1px solid #6578bd;
+  border-radius: 25px;
+  padding: 12px 16px;
+}
+
+button {
+  background: #75e4f6;
+  color: #09102b;
+  padding: 12px 17px;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 5px 3px;
+  font-size: 15px;
+}
+
+button:hover { background: #ffd77a; }
+
+.explore-button {
+  background: linear-gradient(90deg, #7cecff, #b9a0ff);
+  padding: 17px 25px;
+  font-size: 16px;
+  box-shadow: 0 0 25px #5140a8;
+}
+
+.bottom-text {
+  margin-top: 30px;
+  color: #ffd77a;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+
+@keyframes floatPlanet {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes twinkle {
+  from { opacity: .5; }
+  to { opacity: 1; }
+}
+
+header {
+  text-align: center;
+  padding: 35px 15px;
+  background: #080b29;
+}
+
+header h1 {
+  font-size: 42px;
+  color: #7cecff;
+  margin-bottom: 10px;
+}
+
+nav {
+  text-align: center;
+  padding: 15px;
+  background: #15183e;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 8px;
+  font-weight: bold;
+}
+
+nav a:hover { color: #7cecff; }
+
+section {
+  padding: 25px 18px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+h2 { color: #7cecff; text-align: center; }
+
+.intro { text-align: center; line-height: 1.8; }
+
+.solar-system {
+  text-align: center;
+  padding: 20px;
+  background: #11183a;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+.planet-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.space-object {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.planet {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 27px;
+}
+
+.sun { background: orange; box-shadow: 0 0 22px orange; }
+.mercury { background: #999; }
+.venus { background: #dca66b; }
+.earth { background: #278bff; }
+.mars { background: #d74b35; }
+.jupiter { background: #c89b76; }
+.saturn { background: #e6d09b; }
+.uranus { background: #7de5e8; }
+.neptune { background: #315de7; }
+
+.planet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: #151c43;
+  border: 1px solid #3b4b84;
+  border-radius: 18px;
+  padding: 20px;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #7cecff;
+}
+
+.card h3 { color: #ffd77a; }
+.card p { line-height: 1.7; }
+.fact { color: #9beaff; font-size: 14px; }
+
+.quiz-box, .leaderboard {
+  background: #151c43;
+  border: 1px solid #46548a;
+  padding: 22px;
+  border-radius: 18px;
+  margin-top: 20px;
+}
+
+input {
+  padding: 12px;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 8px;
+  border: none;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: #29335f;
+  color: white;
+  border: 1px solid #56669c;
+  margin: 10px 0;
+}
+
+.option:hover { background: #394a80; }
+.option:disabled { cursor: default; opacity: 1; }
+.correct { background: #17683e !important; border-color: #65f5a6; }
+.wrong { background: #862f49 !important; border-color: #ff9aaa; }
+
+#feedback { min-height: 28px; line-height: 1.6; margin: 15px 0; }
+
+.progress {
+  height: 9px;
+  background: #333d67;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background: #7cecff;
+  transition: width .3s;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 12px 6px;
+  border-bottom: 1px solid #39466e;
+  text-align: center;
+}
+
+th { color: #7cecff; }
+footer {
+  text-align: center;
+  padding: 25px;
+  background: #080b29;
+  margin-top: 30px;
+  color: #bdc8ed;
+}
+
+.hidden { display: none !important; }
+
+@media(max-width: 500px) {
+  header h1 { font-size: 30px; }
+  nav a { display: inline-block; margin: 6px; }
+  .planet { width: 38px; height: 38px; }
+  th, td { font-size: 13px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- COVER PAGE -->
+<div id="coverPage">
+  <div class="stars">✦ · ✧ ✦ · ✧ ✦ · ✦</div>
+  <div class="cover-content">
+    <div class="badge">🚀 YOUR SPACE ADVENTURE STARTS HERE</div>
+    <h1>SOLAR SYSTEM <span>EXPLORER</span></h1>
+    <p class="subtitle">✨ Discover the Wonders of Our Universe ✨</p>
+
+    <div class="planet-display">
+      <div class="space-planet">☀️</div>
+      <div class="space-planet">⚫</div>
+      <div class="space-planet">🟠</div>
+      <div class="space-planet">🌍</div>
+      <div class="space-planet">🔴</div>
+      <div class="space-planet">🟤</div>
+      <div class="space-planet">🪐</div>
+      <div class="space-planet">🔵</div>
+      <div class="space-planet">🔷</div>
+    </div>
+
+    <p class="description">
+      Travel across the eight planets, uncover amazing space facts,
+      challenge yourself with exciting quizzes, and climb the
+      Space Champions leaderboard!
+    </p>
+
+    <div class="cover-features">
+      <span>🪐 Explore Planets</span>
+      <span>🧠 Play Quizzes</span>
+      <span>🏆 Earn Your Rank</span>
+    </div>
+
+    <button class="explore-button" onclick="enterHome()">
+      EXPLORE THE UNIVERSE 🚀
+    </button>
+    <p class="bottom-text">LEARN ✦ DISCOVER ✦ DREAM BIG</p>
+  </div>
+</div>
+
+<header>
+  <h1>🌌 Solar System Explorer</h1>
+  <p>Discover the planets • Test your knowledge • Become a Space Champion!</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#planets">Planets</a>
+  <a href="#quiz">Quiz</a>
+  <a href="#leaderboard">Leaderboard</a>
+</nav>
+
+<section id="home">
+  <h2>🚀 Welcome, Space Explorer!</h2>
+  <p class="intro">
+    Our solar system consists of the Sun, eight planets, their moons,
+    dwarf planets, asteroids, comets and other objects.
+    Explore the planets below and then take the quiz to see how much
+    you have learned!
+  </p>
+
+  <div class="solar-system">
+    <h3>☀️ The Planets in Order from the Sun</h3>
+    <div class="planet-row">
+      <div class="space-object"><div class="planet sun">☀️</div>Sun</div>
+      <div class="space-object"><div class="planet mercury">☿</div>Mercury</div>
+      <div class="space-object"><div class="planet venus">♀</div>Venus</div>
+      <div class="space-object"><div class="planet earth">🌍</div>Earth</div>
+      <div class="space-object"><div class="planet mars">♂</div>Mars</div>
+      <div class="space-object"><div class="planet jupiter">♃</div>Jupiter</div>
+      <div class="space-object"><div class="planet saturn">🪐</div>Saturn</div>
+      <div class="space-object"><div class="planet uranus">♅</div>Uranus</div>
+      <div class="space-object"><div class="planet neptune">♆</div>Neptune</div>
+    </div>
+    <p class="fact">Diagram is not to scale. Pluto is classified as a dwarf planet.</p>
+  </div>
+</section>
+
+<section id="planets">
+  <h2>🪐 Meet All 8 Planets</h2>
+  <div class="planet-grid">
+
+    <div class="card">
+      <h3>☿ 1. Mercury</h3>
+      <p>Mercury is the smallest planet and the closest to the Sun. It has a rocky surface covered with craters and almost no atmosphere.</p>
+      <p><b>Type:</b> Rocky planet</p>
+      <p><b>Year:</b> 88 Earth days</p>
+      <p class="fact">✨ Did you know? Mercury has extreme temperature changes between day and night.</p>
+    </div>
+
+    <div class="card">
+      <h3>♀ 2. Venus</h3>
+      <p>Venus is similar in size to Earth. Its thick atmosphere traps heat, making it the hottest planet in our solar system.</p>
+      <p><b>Type:</b> Rocky planet</p>
+      <p><b>Atmosphere:</b> Mostly carbon dioxide</p>
+      <p class="fact">✨ Did you know? Venus rotates in the opposite direction to most planets.</p>
+    </div>
+
+    <div class="card">
+      <h3>🌍 3. Earth</h3>
+      <p>Earth is our home planet. It has liquid water, a protective atmosphere and the conditions needed for life as we know it.</p>
+      <p><b>Type:</b> Rocky planet</p>
+      <p><b>Surface:</b> About 71% water</p>
+      <p class="fact">✨ Did you know? Earth is the only planet currently known to support life.</p>
+    </div>
+
+    <div class="card">
+      <h3>♂ 4. Mars</h3>
+      <p>Mars is called the Red Planet because iron-rich dust gives its surface a reddish colour. Scientists study it to understand whether life could have existed there.</p>
+      <p><b>Type:</b> Rocky planet</p>
+      <p><b>Moons:</b> Phobos and Deimos</p>
+      <p class="fact">✨ Did you know? Mars has Olympus Mons, a gigantic volcano.</p>
+    </div>
+
+    <div class="card">
+      <h3>♃ 5. Jupiter</h3>
+      <p>Jupiter is the largest planet. It is a gas giant with colourful cloud bands, powerful storms and many moons.</p>
+      <p><b>Type:</b> Gas giant</p>
+      <p><b>Famous feature:</b> Great Red Spot</p>
+      <p class="fact">✨ Did you know? The Great Red Spot is a giant storm.</p>
+    </div>
+
+    <div class="card">
+      <h3>🪐 6. Saturn</h3>
+      <p>Saturn is a gas giant famous for its beautiful rings. These rings contain countless pieces of ice and rocky material.</p>
+      <p><b>Type:</b> Gas giant</p>
+      <p><b>Famous feature:</b> Ring system</p>
+      <p class="fact">✨ Did you know? Saturn's average density is lower than that of water.</p>
+    </div>
+
+    <div class="card">
+      <h3>♅ 7. Uranus</h3>
+      <p>Uranus is an ice giant. Methane in its atmosphere gives it a blue-green colour. Its rotation is unusually tilted.</p>
+      <p><b>Type:</b> Ice giant</p>
+      <p><b>Colour:</b> Blue-green</p>
+      <p class="fact">✨ Did you know? Uranus rotates almost on its side.</p>
+    </div>
+
+    <div class="card">
+      <h3>♆ 8. Neptune</h3>
+      <p>Neptune is the farthest recognised planet from the Sun. It is a cold ice giant with powerful winds and a deep blue appearance.</p>
+      <p><b>Type:</b> Ice giant</p>
+      <p><b>Year:</b> About 165 Earth years</p>
+      <p class="fact">✨ Did you know? Neptune takes about 165 Earth years to orbit the Sun.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="quiz">
+  <h2>🧠 Solar System Quiz Challenge</h2>
+  <div class="quiz-box">
+
+    <div id="setup">
+      <p>Enter your name and answer 10 questions. Each correct answer earns one point!</p>
+      <input id="playerName" maxlength="24" placeholder="Enter your name">
+      <br>
+      <button onclick="startQuiz()">🚀 Start Quiz</button>
+    </div>
+
+    <div id="quizArea" class="hidden">
+      <p id="questionCount"></p>
+      <div class="progress"><div id="progressBar"></div></div>
+      <h3 id="question"></h3>
+      <div id="options"></div>
+      <p id="feedback" aria-live="polite"></p>
+      <p>⭐ Score: <span id="score">0</span></p>
+      <button id="nextBtn" onclick="nextQuestion()" disabled>Next Question →</button>
+    </div>
+
+    <div id="result" class="hidden">
+      <h3 id="resultTitle">Quiz Complete!</h3>
+      <p id="resultText"></p>
+      <button onclick="startQuiz()">🔄 Play Again</button>
+      <button onclick="showLeaderboard()">🏆 View Leaderboard</button>
+    </div>
+  </div>
+</section>
+
+<section id="leaderboard">
+  <h2>🏆 Space Champions Leaderboard</h2>
+  <div class="leaderboard">
+    <p>Complete the quiz to add your score to the leaderboard!</p>
+    <table>
+      <thead>
+        <tr><th>Rank</th><th>Explorer</th><th>Score</th><th>Percentage</th></tr>
+      </thead>
+      <tbody id="leaderRows"></tbody>
+    </table>
+    <p id="emptyBoard">No scores yet. Be the first Space Champion!</p>
+    <button onclick="clearBoard()">🗑️ Clear Leaderboard</button>
+    <p class="fact">
+      Scores are saved in this browser on this device.
+      A shared leaderboard across different devices requires an online database.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>🌌 Keep Exploring. Keep Learning. Reach for the Stars! 🚀</p>
+  <p>Solar System Explorer | Science Exhibition Project</p>
+</footer>
+
+<script>
+function enterHome() {
+  document.getElementById("coverPage").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+const questions = [
+  {q:"Which planet is closest to the Sun?",o:["Earth","Mercury","Mars","Venus"],a:1,e:"Mercury is the closest planet to the Sun."},
+  {q:"Which planet is called the Red Planet?",o:["Jupiter","Venus","Mars","Neptune"],a:2,e:"Iron-rich dust makes Mars look red."},
+  {q:"Which is the hottest planet?",o:["Mercury","Venus","Earth","Mars"],a:1,e:"Venus has a thick heat-trapping atmosphere."},
+  {q:"Which planet is our home?",o:["Earth","Saturn","Mars","Uranus"],a:0,e:"Earth is our home planet."},
+  {q:"Which is the largest planet?",o:["Saturn","Jupiter","Neptune","Earth"],a:1,e:"Jupiter is the largest planet."},
+  {q:"Which planet is famous for its rings?",o:["Mars","Venus","Saturn","Mercury"],a:2,e:"Saturn has a spectacular ring system."},
+  {q:"Which planet rotates almost on its side?",o:["Uranus","Earth","Mars","Jupiter"],a:0,e:"Uranus has an extreme axial tilt."},
+  {q:"Which is the farthest recognised planet from the Sun?",o:["Jupiter","Saturn","Neptune","Uranus"],a:2,e:"Neptune is the eighth planet."},
+  {q:"What is the Sun?",o:["A planet","A star","A moon","An asteroid"],a:1,e:"The Sun is the star at the centre of our solar system."},
+  {q:"How many recognised planets are in our solar system?",o:["7","8","9","10"],a:1,e:"Our solar system has eight recognised planets."},
+  {q:"Which planet has the Great Red Spot?",o:["Mars","Jupiter","Venus","Neptune"],a:1,e:"The Great Red Spot is a giant storm on Jupiter."},
+  {q:"Which planet has two small moons named Phobos and Deimos?",o:["Earth","Mars","Mercury","Saturn"],a:1,e:"Phobos and Deimos are the two moons of Mars."},
+  {q:"Which planet is an ice giant with a blue-green colour?",o:["Uranus","Mercury","Earth","Venus"],a:0,e:"Methane helps give Uranus its blue-green colour."},
+  {q:"Which planet takes about 165 Earth years to orbit the Sun?",o:["Earth","Neptune","Mars","Venus"],a:1,e:"Neptune takes about 165 Earth years to complete one orbit."},
+  {q:"What is Pluto classified as?",o:["A star","A moon","A dwarf planet","A comet"],a:2,e:"Pluto is classified as a dwarf planet."}
+];
+
+let player = "";
+let current = 0;
+let score = 0;
+let round = [];
+let answered = false;
+
+function getBoard() {
+  try {
+    return JSON.parse(localStorage.getItem("solarExplorerScores") || "[]");
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveBoard(board) {
+  try {
+    localStorage.setItem("solarExplorerScores", JSON.stringify(board));
+  } catch (e) {
+    alert("Your browser could not save the leaderboard.");
+  }
+}
+
+function renderBoard() {
+  const board = getBoard()
+    .sort((a,b) => b.score - a.score || a.date - b.date)
+    .slice(0,20);
+
+  const tbody = document.getElementById("leaderRows");
+  tbody.innerHTML = "";
+
+  document.getElementById("emptyBoard").style.display =
+    board.length ? "none" : "block";
+
+  board.forEach((p,i) => {
+    const row = document.createElement("tr");
+    const rank = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i+1;
+
+    [rank,p.name,p.score+" / 10",p.score*10+"%"].forEach(value => {
+      const cell = document.createElement("td");
+      cell.textContent = value;
+      row.appendChild(cell);
+    });
+
+    tbody.appendChild(row);
+  });
+}
+
+function startQuiz() {
+  player = document.getElementById("playerName").value.trim()
+    .slice(0,24) || "Space Explorer";
+
+  current = 0;
+  score = 0;
+  round = [...questions]
+    .sort(() => Math.random() - 0.5)
+    .slice(0,10);
+
+  document.getElementById("score").textContent = score;
+  document.getElementById("setup").classList.add("hidden");
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("quizArea").classList.remove("hidden");
+
+  showQuestion();
+  document.getElementById("quiz").scrollIntoView({behavior:"smooth"});
+}
+
+function showQuestion() {
+  answered = false;
+  const item = round[current];
+
+  document.getElementById("questionCount").textContent =
+    "Question " + (current+1) + " of " + round.length;
+
+  document.getElementById("progressBar").style.width =
+    (current / round.length * 100) + "%";
+
+  document.getElementById("question").textContent = item.q;
+  document.getElementById("feedback").textContent = "Choose your answer.";
+
+  const options = document.getElementById("options");
+  options.innerHTML = "";
+
+  item.o.forEach((option,i) => {
+    const button = document.createElement("button");
+    button.className = "option";
+    button.textContent = String.fromCharCode(65+i) + ". " + option;
+    button.onclick = () => chooseAnswer(i);
+    options.appendChild(button);
+  });
+
+  const next = document.getElementById("nextBtn");
+  next.disabled = true;
+  next.textContent = current === round.length-1
+    ? "See My Result 🏆" : "Next Question →";
+}
+
+function chooseAnswer(i) {
+  if (answered) return;
+  answered = true;
+
+  const item = round[current];
+  const buttons = document.getElementById("options").children;
+
+  for (let j=0; j<buttons.length; j++) {
+    buttons[j].disabled = true;
+    if (j === item.a) buttons[j].classList.add("correct");
+    if (j === i && i !== item.a) buttons[j].classList.add("wrong");
+  }
+
+  if (i === item.a) {
+    score++;
+    document.getElementById("feedback").textContent = "✅ Correct! " + item.e;
+  } else {
+    document.getElementById("feedback").textContent = "❌ Not quite. " + item.e;
+  }
+
+  document.getElementById("score").textContent = score;
+  document.getElementById("progressBar").style.width =
+    ((current+1) / round.length * 100) + "%";
+
+  document.getElementById("nextBtn").disabled = false;
+}
+
+function nextQuestion() {
+  if (!answered) return;
+
+  if (current < round.length-1) {
+    current++;
+    showQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  const board = getBoard();
+
+  board.push({
+    name: player,
+    score: score,
+    date: Date.now()
+  });
+
+  saveBoard(board);
+
+  document.getElementById("quizArea").classList.add("hidden");
+  document.getElementById("result").classList.remove("hidden");
+
+  document.getElementById("resultTitle").textContent =
+    score >= 9 ? "🌟 Amazing, Space Champion!" :
+    score >= 6 ? "🚀 Great Work, Explorer!" :
+    "🪐 Keep Exploring!";
+
+  document.getElementById("resultText").textContent =
+    player + ", you scored " + score + " out of 10 (" +
+    score*10 + "%). Your score has been added to the leaderboard.";
+
+  renderBoard();
+}
+
+function showLeaderboard() {
+  document.getElementById("leaderboard").scrollIntoView({behavior:"smooth"});
+}
+
+function clearBoard() {
+  if (confirm("Are you sure you want to clear all leaderboard scores?")) {
+    saveBoard([]);
+    renderBoard();
+  }
+}
+
+renderBoard();
+</script>
+
+</body>
+</html>
